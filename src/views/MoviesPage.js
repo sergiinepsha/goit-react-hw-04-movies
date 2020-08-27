@@ -1,10 +1,13 @@
 import React, { Component } from "react";
+
 import SearchForm from "../components/SearchForm/SearchForm";
 import MoviesList from "../components/MoviesList/MoviesList";
-import moviesApi from "../services/api/moviesApi";
-import getQueryParams from "../utils/getQueryParams";
 import Spinner from "../components/Spinner/Spinner";
 import Modal from "../components/Modal/Modal";
+
+import moviesApi from "../services/api/moviesApi";
+import getQueryParams from "../utils/getQueryParams";
+
 import { TotalCSS } from "./styled/styledMoviesPage";
 
 export default class MoviesPage extends Component {
@@ -16,17 +19,18 @@ export default class MoviesPage extends Component {
   };
 
   componentDidMount() {
-    const { query, page } = getQueryParams(this.props.location.search);
+    const { location } = this.props;
+    const { query, page } = getQueryParams(location.search);
+
     if (query) {
       this.fetchMovies(query, page);
     }
   }
 
-  componentDidUpdate(prevProps, prevState) {
+  componentDidUpdate(prevProps, _) {
+    const { location } = this.props;
     const { query: prevQuery } = getQueryParams(prevProps.location.search);
-    const { query: nextQuery, page } = getQueryParams(
-      this.props.location.search
-    );
+    const { query: nextQuery, page } = getQueryParams(location.search);
 
     if (nextQuery !== prevQuery) {
       this.fetchMovies(nextQuery, page);
@@ -37,10 +41,14 @@ export default class MoviesPage extends Component {
    * Processing form submit
    */
   handleChangeQuery = (query) => {
-    this.props.history.push({
-      ...this.props.location,
-      search: `query=${query}&page=1`,
-    });
+    const { history, location } = this.props;
+
+    if (query) {
+      history.push({
+        ...location,
+        search: `query=${query}&page=1`,
+      });
+    }
   };
 
   /*
@@ -70,15 +78,17 @@ export default class MoviesPage extends Component {
 
   render() {
     const { movies, total_results, loading, error } = this.state;
+    const { location } = this.props;
+
     return (
       <>
         <SearchForm onSubmit={this.handleChangeQuery} />
         {loading && <Spinner />}
-        {error && <Modal error={error} onCloseModal={this.closeModal} />}
+        {error && <Modal errorMsg={error.message} onClose={this.closeModal} />}
         {movies.length > 0 && (
           <>
             <TotalCSS>Total: {total_results}</TotalCSS>
-            <MoviesList movies={movies} location={this.props.location} />;
+            <MoviesList movies={movies} location={location} />;
           </>
         )}
       </>

@@ -1,8 +1,10 @@
 import React, { Component } from "react";
-import moviesApi from "../services/api/moviesApi";
+
 import MoviesList from "../components/MoviesList/MoviesList";
 import Spinner from "../components/Spinner/Spinner";
 import Modal from "../components/Modal/Modal";
+
+import moviesApi from "../services/api/moviesApi";
 
 export default class HomePage extends Component {
   state = {
@@ -36,12 +38,14 @@ export default class HomePage extends Component {
 
   render() {
     const { movies, loading, error } = this.state;
+    const { location } = this.props;
+
     return (
       <>
         {loading && <Spinner />}
-        {error && <Modal error={error} onCloseModal={this.closeModal} />}
+        {error && <Modal errorMsg={error.message} onClose={this.closeModal} />}
         {movies.length > 0 && (
-          <MoviesList movies={movies} location={this.props.location} />
+          <MoviesList movies={movies} location={location} />
         )}
       </>
     );

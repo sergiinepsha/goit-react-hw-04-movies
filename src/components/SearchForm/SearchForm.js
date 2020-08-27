@@ -21,8 +21,10 @@ export default class SearchForm extends Component {
    * Processing form input
    */
   handleChange = (e) => {
+    const { value } = e.target;
+
     this.setState({
-      inputValue: e.target.value,
+      inputValue: value,
     });
   };
 
@@ -31,12 +33,17 @@ export default class SearchForm extends Component {
    */
   handleSubmit = (e) => {
     e.preventDefault();
-    this.props.onSubmit(this.state.inputValue);
+
+    const { inputValue } = this.state;
+    const { onSubmit } = this.props;
+
+    onSubmit(inputValue);
     this.setState({ inputValue: "" });
   };
 
   render() {
     const { inputValue } = this.state;
+
     return (
       <SearchFormCSS onSubmit={this.handleSubmit}>
         <SearchFormButtonCSS type="submit">

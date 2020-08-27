@@ -5,8 +5,8 @@ import { OverlayCSS, ModalCSS } from "./styledModal";
 
 export default class Modal extends Component {
   static propTypes = {
-    onCloseModal: PropTypes.func.isRequired,
-    error: PropTypes.object.isRequired,
+    onClose: PropTypes.func.isRequired,
+    errorMsg: PropTypes.string.isRequired,
   };
 
   componentDidMount() {
@@ -21,8 +21,10 @@ export default class Modal extends Component {
    * Processing keydown
    */
   handleKeydown = ({ code }) => {
+    const { onClose } = this.props;
+
     if (code === "Escape") {
-      this.props.onCloseModal();
+      onClose();
     }
   };
 
@@ -30,17 +32,20 @@ export default class Modal extends Component {
    * Processing a click on the overlay
    */
   handleOverlayClick = ({ target, currentTarget }) => {
+    const { onClose } = this.props;
+
     if (target === currentTarget) {
-      this.props.onCloseModal();
+      onClose();
     }
   };
 
   render() {
-    const { error } = this.props;
+    const { errorMsg } = this.props;
+
     return (
       <OverlayCSS onClick={this.handleOverlayClick}>
         <ModalCSS>
-          <p>{error}</p>
+          <p>{errorMsg}</p>
         </ModalCSS>
       </OverlayCSS>
     );

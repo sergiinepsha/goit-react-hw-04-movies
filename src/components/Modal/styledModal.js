@@ -16,6 +16,7 @@ const OverlayCSS = styled.div`
 const ModalCSS = styled.div`
   max-width: calc(100vw - 48px);
   max-height: calc(100vh - 24px);
+  color: rgb(255, 255, 255);
 `;
 
 export { OverlayCSS, ModalCSS };

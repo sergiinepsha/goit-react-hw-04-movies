@@ -1,12 +1,14 @@
 import React, { Component, lazy, Suspense } from "react";
 import { Route } from "react-router-dom";
-import routes from "../routes";
-import moviesApi from "../services/api/moviesApi";
+
 import Spinner from "../components/Spinner/Spinner";
 import AdditionalInformation from "../components/AdditionalInformation/AdditionalInformation";
 import MovieInfo from "../components/MovieInfo/MovieInfo";
 import ButtonGoBack from "../components/ButtonGoBack/ButtonGoBack";
 import Modal from "../components/Modal/Modal";
+
+import routes from "../routes";
+import moviesApi from "../services/api/moviesApi";
 
 const AsyncCast = lazy(() => import("./Cast" /* webpackChankName: "cast" */));
 
@@ -60,28 +62,20 @@ export default class MovieDetailsPage extends Component {
   render() {
     const { movie, loading, error } = this.state;
     const { state } = this.props.location;
+    const { match } = this.props;
 
     return (
       <>
         {loading && <Spinner />}
-        {error && <Modal error={error} onCloseModal={this.closeModal} />}
+        {error && <Modal errorMsg={error.message} onClose={this.closeModal} />}
         {movie.title && (
           <>
             <ButtonGoBack onClick={this.handleGoBack} />
             <MovieInfo movie={movie} />
-            <AdditionalInformation
-              matchUrl={this.props.match.url}
-              locationState={state}
-            />
+            <AdditionalInformation matchUrl={match.url} locationState={state} />
             <Suspense fallback={<Spinner />}>
-              <Route
-                path={`${this.props.match.path}/cast`}
-                component={AsyncCast}
-              />
-              <Route
-                path={`${this.props.match.path}/reviews`}
-                component={AsyncReviews}
-              />
+              <Route path={`${match.path}/cast`} component={AsyncCast} />
+              <Route path={`${match.path}/reviews`} component={AsyncReviews} />
             </Suspense>
           </>
         )}

@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+
 import {
   CastListCSS,
   CastItemCSS,
@@ -8,7 +9,7 @@ import {
   CastItemCharacterCSS,
 } from "./styledCastList";
 
-export default function CastList({ cast }) {
+const CastList = ({ cast }) => {
   return (
     <CastListCSS>
       {cast.map(({ id, name, profile_path, character }) => (
@@ -27,7 +28,7 @@ export default function CastList({ cast }) {
       ))}
     </CastListCSS>
   );
-}
+};
 
 CastList.propTypes = {
   cast: PropTypes.arrayOf(PropTypes.object.isRequired).isRequired,
@@ -43,3 +44,5 @@ CastList.propTypes = {
 //     })
 //   ).isRequired,
 // };
+
+export default CastList;

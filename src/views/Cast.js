@@ -41,10 +41,11 @@ export default class Cast extends Component {
 
   render() {
     const { cast, loading, error } = this.state;
+
     return (
       <>
         {loading && <Spinner />}
-        {error && <Modal error={error} onCloseModal={this.closeModal} />}
+        {error && <Modal errorMsg={error.message} onClose={this.closeModal} />}
         <CastList cast={cast} />
       </>
     );

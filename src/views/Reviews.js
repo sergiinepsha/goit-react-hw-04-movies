@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 
 import ReviewsList from "../components/ReviewsList/ReviewsList";
-
-import moviesApi from "../services/api/moviesApi";
 import Spinner from "../components/Spinner/Spinner";
 import Modal from "../components/Modal/Modal";
+
+import moviesApi from "../services/api/moviesApi";
 
 export default class Reviews extends Component {
   state = {
@@ -39,10 +39,11 @@ export default class Reviews extends Component {
 
   render() {
     const { reviews, loading, error } = this.state;
+
     return (
       <>
         {loading && <Spinner />}
-        {error && <Modal error={error} onCloseModal={this.closeModal} />}
+        {error && <Modal errorMsg={error.message} onClose={this.closeModal} />}
         <ReviewsList reviews={reviews} />
       </>
     );

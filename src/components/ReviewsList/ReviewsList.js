@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+
 import {
   ReviewsListCSS,
   ReviewsItemCSS,
@@ -8,7 +9,7 @@ import {
   NoReviewsCSS,
 } from "./styledReviewsList";
 
-export default function ReviewsList({ reviews }) {
+const ReviewsList = ({ reviews }) => {
   return (
     <>
       {reviews.length > 0 ? (
@@ -25,8 +26,10 @@ export default function ReviewsList({ reviews }) {
       )}
     </>
   );
-}
+};
 
 ReviewsList.propTypes = {
   reviews: PropTypes.arrayOf(PropTypes.object.isRequired).isRequired,
 };
+
+export default ReviewsList;
