@@ -13,9 +13,9 @@ export default class SearchForm extends Component {
     onSubmit: PropTypes.func.isRequired,
   };
 
-  state = {
-    inputValue: "",
-  };
+  INITIAL_STATE = { inputValue: "" };
+
+  state = { ...this.INITIAL_STATE };
 
   /*
    * Processing form input
@@ -38,7 +38,7 @@ export default class SearchForm extends Component {
     const { onSubmit } = this.props;
 
     onSubmit(inputValue);
-    this.setState({ inputValue: "" });
+    this.setState({ ...this.INITIAL_STATE });
   };
 
   render() {
