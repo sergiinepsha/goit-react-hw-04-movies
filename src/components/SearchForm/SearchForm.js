@@ -8,14 +8,14 @@ import {
   SearchFormInputCSS,
 } from "./styledSearchForm";
 
+const INITIAL_STATE = { inputValue: "" };
+
 export default class SearchForm extends Component {
   static propTypes = {
     onSubmit: PropTypes.func.isRequired,
   };
 
-  INITIAL_STATE = { inputValue: "" };
-
-  state = { ...this.INITIAL_STATE };
+  state = { ...INITIAL_STATE };
 
   /*
    * Processing form input
@@ -38,7 +38,7 @@ export default class SearchForm extends Component {
     const { onSubmit } = this.props;
 
     onSubmit(inputValue);
-    this.setState({ ...this.INITIAL_STATE });
+    this.setState({ ...INITIAL_STATE });
   };
 
   render() {
