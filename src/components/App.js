@@ -8,16 +8,16 @@ import AppFooter from "./AppFooter/AppFooter";
 import Spinner from "./Spinner/Spinner";
 
 const AsyncHomePage = lazy(() =>
-  import("../views/HomePage" /* webpackChankName: "home-page" */)
+  import("../views/HomePage" /* webpackChunkName: "home-page" */)
 );
 
 const AsyncMoviesPage = lazy(() =>
-  import("../views/MoviesPage" /* webpackChankName: "movies-page" */)
+  import("../views/MoviesPage" /* webpackChunkName: "movies-page" */)
 );
 
 const AsyncMovieDetailsPage = lazy(() =>
   import(
-    "../views/MovieDetailsPage" /* webpackChankName: "movies-details-page" */
+    "../views/MovieDetailsPage" /* webpackChunkName: "movies-details-page" */
   )
 );
 
