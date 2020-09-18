@@ -9,8 +9,8 @@ axios.defaults.headers.common["Authorization"] = AUTH_TOKEN;
 /*
  * Make a request the weekly trending movies
  */
-const fetchMoviesTrendy = async () => {
-  const result = await getAxios(`/trending/movie/week`);
+const fetchMoviesTrendy = () => {
+  const result = getAxios(`/trending/movie/week`);
 
   return result;
 };
@@ -18,8 +18,8 @@ const fetchMoviesTrendy = async () => {
 /*
  * Make a request for movies by searchQuery
  */
-const fetchMoviesWithQuery = async (searchQuery, page) => {
-  const result = await getAxios(
+const fetchMoviesWithQuery = (searchQuery, page) => {
+  const result = getAxios(
     `/search/movie?query=${searchQuery}&page=${page}&include_adult=false`
   );
 
@@ -29,8 +29,8 @@ const fetchMoviesWithQuery = async (searchQuery, page) => {
 /*
  * Make a request the primary information about a movie
  */
-const fetchMovieDetails = async (movieId) => {
-  const result = await getAxios(`/movie/${movieId}`);
+const fetchMovieDetails = (movieId) => {
+  const result = getAxios(`/movie/${movieId}`);
 
   return result;
 };
@@ -38,8 +38,8 @@ const fetchMovieDetails = async (movieId) => {
 /*
  * Make a request the cast and crew movie
  */
-const fetchMovieCast = async (movieId) => {
-  const result = await getAxios(`/movie/${movieId}/credits`);
+const fetchMovieCast = (movieId) => {
+  const result = getAxios(`/movie/${movieId}/credits`);
 
   return result;
 };
@@ -47,8 +47,8 @@ const fetchMovieCast = async (movieId) => {
 /*
  * Make a request the user reviews for a movie
  */
-const fetchMovieReviews = async (movieId) => {
-  const result = await getAxios(`/movie/${movieId}/reviews`);
+const fetchMovieReviews = (movieId) => {
+  const result = getAxios(`/movie/${movieId}/reviews`);
 
   return result;
 };
