@@ -35,15 +35,4 @@ MoviesList.propTypes = {
   location: PropTypes.object.isRequired,
 };
 
-// MoviesList.propTypes = {
-//   movies: PropTypes.arrayOf(
-//     PropTypes.exact({
-//       id: PropTypes.string.isRequired,
-//       title: PropTypes.string.isRequired,
-//       poster_path: PropTypes.string.isRequired,
-//     })
-//   ).isRequired,
-//   location: PropTypes.object.isRequired,
-// };
-
 export default MoviesList;

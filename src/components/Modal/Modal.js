@@ -17,9 +17,6 @@ export default class Modal extends Component {
     window.removeEventListener("keydown", this.handleKeydown);
   }
 
-  /*
-   * Processing keydown
-   */
   handleKeydown = ({ code }) => {
     const { onClose } = this.props;
 
@@ -28,9 +25,6 @@ export default class Modal extends Component {
     }
   };
 
-  /*
-   * Processing a click on the overlay
-   */
   handleOverlayClick = ({ target, currentTarget }) => {
     const { onClose } = this.props;
 

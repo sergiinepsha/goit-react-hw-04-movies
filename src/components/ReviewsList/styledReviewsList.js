@@ -22,11 +22,6 @@ const ReviewsItemCSS = styled.li`
     color: rgb(191, 250, 113);
   }
 `;
-// const MoviesItemLinkCSS = styled(Link)`
-//   width: 100%;
-//   text-align: center;
-//   text-decoration: none;
-// `;
 
 const ReviewsItemAuthorCSS = styled.p`
   margin: 0;

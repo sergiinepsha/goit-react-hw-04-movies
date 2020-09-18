@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 
-import MoviesList from "../components/MoviesList/MoviesList";
-import Spinner from "../components/Spinner/Spinner";
-import Modal from "../components/Modal/Modal";
+import MoviesList from "../MoviesList/MoviesList";
+import Spinner from "../Spinner/Spinner";
+import Modal from "../Modal/Modal";
 
-import moviesApi from "../services/api/moviesApi";
+import moviesApi from "../../services/api/moviesApi";
 
 export default class HomePage extends Component {
   state = {
@@ -18,20 +18,18 @@ export default class HomePage extends Component {
     this.fetchMovies();
   }
 
-  /*
-   * Start service Api
-   */
-  fetchMovies = () => {
-    moviesApi
-      .fetchMoviesTrendy()
-      .then(({ results }) => this.setState({ movies: [...results] }))
-      .catch((error) => this.setState({ error }))
-      .finally(this.setState({ loading: false }));
+  fetchMovies = async () => {
+    try {
+      const { results } = await moviesApi.fetchMoviesTrendy();
+
+      this.setState({ movies: [...results] });
+    } catch (error) {
+      this.setState({ error });
+    } finally {
+      this.setState({ loading: false });
+    }
   };
 
-  /*
-   * Close modal window
-   */
   closeModal = () => {
     this.setState({ error: null });
   };

@@ -6,9 +6,6 @@ import App from "./components/App";
 
 import "./style.css";
 
-/*
- * Start magic =)
- */
 ReactDOM.render(
   <BrowserRouter>
     <App />

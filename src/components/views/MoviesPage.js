@@ -1,12 +1,12 @@
 import React, { Component } from "react";
 
-import SearchForm from "../components/SearchForm/SearchForm";
-import MoviesList from "../components/MoviesList/MoviesList";
-import Spinner from "../components/Spinner/Spinner";
-import Modal from "../components/Modal/Modal";
+import SearchForm from "../SearchForm/SearchForm";
+import MoviesList from "../MoviesList/MoviesList";
+import Spinner from "../Spinner/Spinner";
+import Modal from "../Modal/Modal";
 
-import moviesApi from "../services/api/moviesApi";
-import getQueryParams from "../utils/getQueryParams";
+import moviesApi from "../../services/api/moviesApi";
+import getQueryParams from "../../utils/getQueryParams";
 
 import { TotalCSS } from "./styled/styledMoviesPage";
 
@@ -37,9 +37,6 @@ export default class MoviesPage extends Component {
     }
   }
 
-  /*
-   * Processing form submit
-   */
   handleChangeQuery = (query) => {
     const { history, location } = this.props;
 
@@ -51,27 +48,26 @@ export default class MoviesPage extends Component {
     }
   };
 
-  /*
-   * Start service Api
-   */
-  fetchMovies = (query, page) => {
+  fetchMovies = async (query, page) => {
     this.setState({ loading: true });
 
-    moviesApi
-      .fetchMoviesWithQuery(query, page)
-      .then(({ results, total_results }) => {
-        this.setState(() => ({
-          movies: [...results],
-          total_results,
-        }));
-      })
-      .catch((error) => this.setState({ error }))
-      .finally(this.setState({ loading: false }));
+    try {
+      const { results, total_results } = await moviesApi.fetchMoviesWithQuery(
+        query,
+        page
+      );
+
+      this.setState(() => ({
+        movies: [...results],
+        total_results,
+      }));
+    } catch (error) {
+      this.setState({ error });
+    } finally {
+      this.setState({ loading: false });
+    }
   };
 
-  /*
-   * Close modal window
-   */
   closeModal = () => {
     this.setState({ error: null });
   };

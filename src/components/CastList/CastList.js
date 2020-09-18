@@ -34,15 +34,4 @@ CastList.propTypes = {
   cast: PropTypes.arrayOf(PropTypes.object.isRequired).isRequired,
 };
 
-// CastList.propTypes = {
-//   cast: PropTypes.arrayOf(
-//     PropTypes.exact({
-//       id: PropTypes.number.isRequired,
-//       name: PropTypes.string.isRequired,
-//       profile_path: PropTypes.string.isRequired,
-//       character: PropTypes.string.isRequired,
-//     })
-//   ).isRequired,
-// };
-
 export default CastList;

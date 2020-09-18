@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 
-import CastList from "../components/CastList/CastList";
+import CastList from "../CastList/CastList";
 
-import moviesApi from "../services/api/moviesApi";
-import Spinner from "../components/Spinner/Spinner";
-import Modal from "../components/Modal/Modal";
+import moviesApi from "../../services/api/moviesApi";
+import Spinner from "../Spinner/Spinner";
+import Modal from "../Modal/Modal";
 
 export default class Cast extends Component {
   state = {
@@ -19,22 +19,20 @@ export default class Cast extends Component {
     this.fetchMovies(movieId);
   }
 
-  /*
-   * Start service Api
-   */
-  fetchMovies = (movieId) => {
+  fetchMovies = async (movieId) => {
     this.setState({ loading: true });
 
-    moviesApi
-      .fetchMovieCast(movieId)
-      .then(({ cast }) => this.setState({ cast: [...cast] }))
-      .catch((error) => this.setState({ error }))
-      .finally(this.setState({ loading: false }));
+    try {
+      const { cast } = await moviesApi.fetchMovieCast(movieId);
+
+      this.setState({ cast: [...cast] });
+    } catch (error) {
+      this.setState({ error });
+    } finally {
+      this.setState({ loading: false });
+    }
   };
 
-  /*
-   * Close modal window
-   */
   closeModal = () => {
     this.setState({ error: null });
   };

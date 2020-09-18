@@ -1,14 +1,14 @@
 import React, { Component, lazy, Suspense } from "react";
 import { Route } from "react-router-dom";
 
-import Spinner from "../components/Spinner/Spinner";
-import AdditionalInformation from "../components/AdditionalInformation/AdditionalInformation";
-import MovieInfo from "../components/MovieInfo/MovieInfo";
-import ButtonGoBack from "../components/ButtonGoBack/ButtonGoBack";
-import Modal from "../components/Modal/Modal";
+import Spinner from "../Spinner/Spinner";
+import AdditionalInformation from "../AdditionalInformation/AdditionalInformation";
+import MovieInfo from "../MovieInfo/MovieInfo";
+import ButtonGoBack from "../ButtonGoBack/ButtonGoBack";
+import Modal from "../Modal/Modal";
 
-import routes from "../routes";
-import moviesApi from "../services/api/moviesApi";
+import routes from "../../routes/routes";
+import moviesApi from "../../services/api/moviesApi";
 
 const AsyncCast = lazy(() => import("./Cast" /* webpackChankName: "cast" */));
 
@@ -25,24 +25,23 @@ export default class MovieDetailsPage extends Component {
 
   componentDidMount() {
     const { movieId } = this.props.match.params;
+
     this.setState({ loading: true });
     this.fetchMovies(movieId);
   }
 
-  /*
-   * Start service Api
-   */
-  fetchMovies = (movieId) => {
-    moviesApi
-      .fetchMovieDetails(movieId)
-      .then((movie) => this.setState({ movie }))
-      .catch((error) => this.setState({ error }))
-      .finally(this.setState({ loading: false }));
+  fetchMovies = async (movieId) => {
+    try {
+      const movie = await moviesApi.fetchMovieDetails(movieId);
+
+      this.setState({ movie });
+    } catch (error) {
+      this.setState({ error });
+    } finally {
+      this.setState({ loading: false });
+    }
   };
 
-  /*
-   * Processing a click on the button "GoBack"
-   */
   handleGoBack = () => {
     const {
       location: { state },
@@ -52,9 +51,6 @@ export default class MovieDetailsPage extends Component {
     history.push(state && state.from ? state.from : routes.moviesPage);
   };
 
-  /*
-   * Close modal window
-   */
   closeModal = () => {
     this.setState({ error: null });
   };

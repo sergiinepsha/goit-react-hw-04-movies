@@ -17,9 +17,6 @@ export default class SearchForm extends Component {
 
   state = { ...INITIAL_STATE };
 
-  /*
-   * Processing form input
-   */
   handleChange = (e) => {
     const { value } = e.target;
 
@@ -28,9 +25,6 @@ export default class SearchForm extends Component {
     });
   };
 
-  /*
-   * Processing form submit
-   */
   handleSubmit = (e) => {
     e.preventDefault();
 
